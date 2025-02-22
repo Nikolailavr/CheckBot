@@ -3,7 +3,8 @@ from datetime import datetime
 
 from apps.checks.misc.sheet import GoogleSheet
 
-date_format = '%Y-%m-%d %H:%M'
+date_format = '%Y-%m-%d'
+time_format = '%H:%M'
 
 
 class Check:
@@ -32,10 +33,11 @@ class Check:
         place_adress = ticket.get("retailPlaceAddress", '')
         iso_string = ticket.get("dateTime", '')
         date = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S").strftime(date_format)
+        time_ = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S").strftime(time_format)
         for item in items:
             name = item.get("name", "Неизвестно")
             price = item.get("price", 0) / 100  # Цена в копейках
             quantity = item.get("quantity", 0)
             total = item.get("sum", 0) / 100  # Итоговая сумма в копейках
-            result.append([date, name, quantity, price, total, place, place_adress, id_])
+            result.append([date, time_, name, quantity, price, total, place, place_adress, id_])
         return result, id_
