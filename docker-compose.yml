@@ -1,0 +1,14 @@
+services:
+  checksbot:
+    build: ./project
+    command: python manage.py run_bot
+    volumes:
+      - ./project:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      - TIME_ZONE=Asia/Tomsk
+      - SECRET_KEY=4cfyo
+      - DEBUG=False
+      - TELEGRAM_TOKEN=12345678:asdasdASDASDAFASDASDASD
+      - LOG_LEVEL=ERROR
